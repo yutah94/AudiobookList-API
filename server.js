@@ -72,10 +72,10 @@ audiobooksRoutes.route('/add').post(function(req, res) {
 
 audiobooksRoutes.route('/:id').delete(function(req, res) {
     let id = req.params.id;
-    Audiobook.deleteOne({_id: id}).exec()
+    Audiobooks.deleteOne({_id: id}).exec()
     .then(res => {
         console.log(res)
-        res.json(audiobooks);
+        res.json(Audiobooks);
     })
     .catch(err => {
         console.log(err);
