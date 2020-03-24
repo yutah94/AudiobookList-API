@@ -40,7 +40,7 @@ audiobooksRoutes.route('/:id').get(function(req, res) {
     });
 });
 
-audiobooksRoutes.route('/update/:id').post(function(req, res) {
+audiobooksRoutes.route('/:id').put(function(req, res) {
     Audiobooks.findById(req.params.id, function(err, audiobooks) {
         if (!audiobooks)
             res.status(404).send("data is not found");
@@ -72,10 +72,10 @@ audiobooksRoutes.route('/add').post(function(req, res) {
 
 audiobooksRoutes.route('/:id').delete(function(req, res) {
     let id = req.params.id;
-    Audiobooks.deleteOne({_id: id}).exec()
-    .then(res => {
-        console.log(res)
-        res.json(Audiobooks);
+    Audiobooks.deleteOne({_id: id})
+    .then(result => {
+        console.log("This is the result:", result)
+        res.json(result);
     })
     .catch(err => {
         console.log(err);
