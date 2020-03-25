@@ -1,3 +1,4 @@
+var PORT = process.env.PORT || 5556
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
