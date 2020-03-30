@@ -1,4 +1,3 @@
-var PORT = process.env.PORT || 5556
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -7,12 +6,19 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const audiobooksRoutes = express.Router();
 const PORT = 5556;
+var path = require('path');
 
 let Audiobooks = require('./audiobooks.model');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(_dirname, 'react')));
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+// This is for serving up the React app from the server - serving them as one deployment; 2-in-1... Keeps causing bugs in the front end
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// })
 
 // mongoose.connect('mongodb://127.0.0.1:27017/audiobooks', { useNewUrlParser: true });
 // const connection = mongoose.connection;
