@@ -12,6 +12,7 @@ let Audiobooks = require('./audiobooks.model');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(_dirname, 'react')));
 
 // mongoose.connect('mongodb://127.0.0.1:27017/audiobooks', { useNewUrlParser: true });
 // const connection = mongoose.connection;
