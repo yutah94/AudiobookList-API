@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const audiobooksRoutes = express.Router();
-const PORT = 5556;
+const PORT = process.env.PORT || 5556;
 var path = require('path');
 
 let Audiobooks = require('./audiobooks.model');
@@ -13,7 +13,8 @@ let Audiobooks = require('./audiobooks.model');
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
+
 
 // This is for serving up the React app from the server - serving them as one deployment; 2-in-1... Keeps causing bugs in the front end
 // app.get('/*', (req, res) => {
@@ -26,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 // connection.once('open', function() {
 //     console.log("MongoDB database connection established successfully");
 // })
+
+app.use('/audiobooks', audiobooksRoutes);
 
 mongoose.connect(process.env.ATLAS_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true} )
 .then(console.log('The connection is good'))
@@ -89,8 +92,6 @@ audiobooksRoutes.route('/:id').delete(function(req, res) {
         console.log(err);
     })
 });
-
-app.use('/audiobooks', audiobooksRoutes);
 
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
